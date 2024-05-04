@@ -1,0 +1,10 @@
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user, POST} route","time":"2024-05-04 18:26:15"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/user, GET} route","time":"2024-05-04 18:26:15"}
+{"context":"RoutesResolver","level":"info","message":"RedisController {/redis}:","time":"2024-05-04 18:26:15"}
+{"context":"RoutesResolver","level":"info","message":"EmailController {/email}:","time":"2024-05-04 18:26:15"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/email/send, GET} route","time":"2024-05-04 18:26:15"}
+{"context":"RoutesResolver","level":"info","message":"ArticleController {/article}:","time":"2024-05-04 18:26:15"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/article, POST} route","time":"2024-05-04 18:26:15"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/article, GET} route","time":"2024-05-04 18:26:15"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/article/:id, GET} route","time":"2024-05-04 18:26:15"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/article/:id, PATCH} route","time":"2024-05-04 18:26:15"}

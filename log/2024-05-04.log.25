@@ -1,0 +1,9 @@
+{"context":"RouterExplorer","level":"info","message":"Mapped {/article, GET} route","time":"2024-05-04 18:23:55"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/article/:id, GET} route","time":"2024-05-04 18:23:55"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/article/:id, PATCH} route","time":"2024-05-04 18:23:55"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/article/:id, DELETE} route","time":"2024-05-04 18:23:55"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","time":"2024-05-04 18:23:55"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:","time":"2024-05-04 18:24:05"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route","time":"2024-05-04 18:24:05"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/login, POST} route","time":"2024-05-04 18:24:05"}
+{"context":"RoutesResolver","level":"info","message":"UserController {/user}:","time":"2024-05-04 18:24:05"}
