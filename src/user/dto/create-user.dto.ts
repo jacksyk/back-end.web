@@ -11,4 +11,15 @@ export class CreateUserDto {
   @IsEmail()
   @IsOptional()
   email: string;
+
+  @IsString()
+  verifyCode: string;
+}
+
+export class LoginUserDto {
+  @IsString()
+  username: string;
+
+  @IsString()
+  password: string;
 }
