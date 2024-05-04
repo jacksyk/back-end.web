@@ -6,6 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { ArticleLeaveMessage } from './article.leave.message.entity';
+import { classify } from '../constants';
 @Entity('article')
 export class Article {
   @PrimaryGeneratedColumn()
@@ -22,6 +23,12 @@ export class Article {
     default: '',
   })
   articleImage: '';
+
+  @Column({
+    type: 'enum',
+    enum: classify,
+  })
+  classify: classify;
   @CreateDateColumn()
   createTime: Date;
 
