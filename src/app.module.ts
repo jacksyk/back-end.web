@@ -10,6 +10,7 @@ import { WinstonModule } from './winston/winston.module';
 import { optionObject } from './winston/MyLogger';
 import { EmailModule } from 'src/email/email.module';
 import { ArticleModule } from './article/article.module';
+import { ArticleModule } from './article/article.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
