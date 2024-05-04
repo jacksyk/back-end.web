@@ -28,25 +28,4 @@ export class EmailController {
       message: '发送成功',
     };
   }
-
-  @Get('verify')
-  @Pass(true)
-  async verifyEmailCode(@Query('address') address, @Query('code') code) {
-    if (!address || !code)
-      return {
-        code: 404,
-        message: '参数不能为空',
-      };
-
-    const redisCode = await this.redisService.get(address);
-    if (redisCode !== code)
-      return {
-        code: 404,
-        message: '验证码错误',
-      };
-    return {
-      code: 200,
-      message: '验证成功',
-    };
-  }
 }
