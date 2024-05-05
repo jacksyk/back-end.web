@@ -6,13 +6,17 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Article } from './article.entity';
-@Entity('article_likes')
-export class ArticleLikes {
+@Entity('article_watch')
+export class ArticleWatch {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()
+  wacthNum: number;
+  @Column()
   likes: number;
-  @OneToOne(() => Article)
   @JoinColumn()
+  @OneToOne(() => Article, {
+    cascade: true,
+  })
   article: Article;
 }

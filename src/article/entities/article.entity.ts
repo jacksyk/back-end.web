@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   OneToMany,
+  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { ArticleLeaveMessage } from './article.leave.message.entity';
 import { classify } from '../constants';
+import { User } from 'src/user/entities/user.entity';
 @Entity('article')
 export class Article {
   @PrimaryGeneratedColumn()
@@ -22,15 +25,21 @@ export class Article {
   @Column({
     default: '',
   })
-  articleImage: '';
+  articleImage: string;
 
   @Column({
     type: 'enum',
     enum: classify,
+    default: null,
   })
   classify: classify;
+
   @CreateDateColumn()
   createTime: Date;
+
+  @ManyToOne(() => User, (user) => user.articleArray)
+  @JoinColumn()
+  user: User;
 
   @OneToMany(
     () => ArticleLeaveMessage,

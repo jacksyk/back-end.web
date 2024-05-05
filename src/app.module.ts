@@ -7,9 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { Article } from './article/entities/article.entity';
-import { ArticleLikes } from './article/entities/article.likes.entity';
 import { ArticleLeaveMessage } from './article/entities/article.leave.message.entity';
-import { ArticleWatch } from './article/entities/article.watch.entity';
+import { ArticleWatch } from './article/entities/article.info.entity';
 import { WinstonModule } from './winston/winston.module';
 import { optionObject } from './winston/MyLogger';
 import { EmailModule } from 'src/email/email.module';
@@ -25,13 +24,7 @@ import { ArticleModule } from './article/article.module';
       database: 'mysql',
       synchronize: true,
       logging: true,
-      entities: [
-        User,
-        Article,
-        ArticleLikes,
-        ArticleWatch,
-        ArticleLeaveMessage,
-      ],
+      entities: [User, Article, ArticleWatch, ArticleLeaveMessage],
       connectorPackage: 'mysql2',
     }),
     JwtModule.register({
