@@ -7,6 +7,7 @@ import { ArticleWatch } from './entities/article.info.entity';
 import { FindArticleDto } from './dto/find-article.dto';
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/user/entities/user.entity';
+import { UpdateArticleDto } from './dto/update-article.dto';
 @Injectable()
 export class ArticleService {
   @Inject(UserService)
@@ -136,5 +137,27 @@ export class ArticleService {
       code: 200,
       message: article,
     };
+  }
+
+  async updateArticle(body: UpdateArticleDto) {
+    try {
+      const { articleContent, articleImage, articleTitle, id } = body;
+
+      await this.articleRepository.update(id, {
+        articleContent: articleContent,
+        articleImage: articleImage,
+        articleTitle: articleTitle,
+      });
+
+      return {
+        code: 200,
+        message: '更新成功',
+      };
+    } catch (err) {
+      return {
+        code: 0,
+        error: '参数错误',
+      };
+    }
   }
 }

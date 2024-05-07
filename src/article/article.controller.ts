@@ -2,7 +2,7 @@ import { Controller, Post, Body, Get, Query, Param } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { FindArticleDto } from './dto/find-article.dto';
-
+import { UpdateArticleDto } from './dto/update-article.dto';
 @Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
@@ -35,5 +35,10 @@ export class ArticleController {
   @Get('/find/user/:id')
   findUserArticle(@Param('id') id: number) {
     return this.articleService.findUserArticle(id);
+  }
+
+  @Post('/update')
+  updateArticle(@Body() body: UpdateArticleDto) {
+    return this.articleService.updateArticle(body);
   }
 }
