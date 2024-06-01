@@ -3,6 +3,7 @@ import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { FindArticleDto } from './dto/find-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { AddMessageDto } from './dto/add-message.dto';
 @Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
@@ -40,5 +41,20 @@ export class ArticleController {
   @Post('/update')
   updateArticle(@Body() body: UpdateArticleDto) {
     return this.articleService.updateArticle(body);
+  }
+
+  @Post('/message')
+  addMessage(@Body() body: AddMessageDto) {
+    return this.articleService.addMessage(body);
+  }
+
+  @Get('/message/:id')
+  findMessage(@Param('id') id: number) {
+    return this.articleService.getMessage(id);
+  }
+
+  @Get('/classify')
+  getAllClassify() {
+    return this.articleService.getAllClassify();
   }
 }

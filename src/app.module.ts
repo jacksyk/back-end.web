@@ -13,6 +13,10 @@ import { WinstonModule } from './winston/winston.module';
 import { optionObject } from './winston/MyLogger';
 import { EmailModule } from 'src/email/email.module';
 import { ArticleModule } from './article/article.module';
+import { NavigatorModule } from './navigator/navigator.module';
+import { Navigator } from './navigator/entities/navigator.entity';
+import { AdviceModule } from './advice/advice.module';
+import { Advice } from './advice/entities/advice.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -24,7 +28,14 @@ import { ArticleModule } from './article/article.module';
       database: 'mysql',
       synchronize: true,
       logging: true,
-      entities: [User, Article, ArticleWatch, ArticleLeaveMessage],
+      entities: [
+        User,
+        Article,
+        ArticleWatch,
+        ArticleLeaveMessage,
+        Navigator,
+        Advice,
+      ],
       connectorPackage: 'mysql2',
     }),
     JwtModule.register({
@@ -37,6 +48,8 @@ import { ArticleModule } from './article/article.module';
     WinstonModule.forRoot(optionObject),
     EmailModule,
     ArticleModule,
+    NavigatorModule,
+    AdviceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

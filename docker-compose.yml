@@ -12,6 +12,8 @@ services:
       MYSQL_ROOT_PASSWORD: shuyikang123
     ports:
       - 3390:3306
+    volumes:
+      - ./data/db:/var/lib/mysql
 
   adminer:
     image: adminer

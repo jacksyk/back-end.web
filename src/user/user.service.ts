@@ -1,5 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserDto, LoginUserDto } from './dto/create-user.dto';
+import {
+  CreateUserDto,
+  LoginUserDto,
+  ModifyUserDto,
+} from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -83,6 +87,44 @@ export class UserService {
     } else {
       return {
         message: '账号或密码错误',
+      };
+    }
+  }
+
+  async findOne(id: number) {
+    const info = await this.userRepository.findOneBy({
+      id,
+    });
+    return {
+      code: 200,
+      message: info,
+    };
+  }
+
+  async modify(modifyUserDto: ModifyUserDto) {
+    const { age, email, name, password, userId, username } = modifyUserDto;
+
+    try {
+      await this.userRepository.update(
+        {
+          id: Number(userId),
+        },
+        {
+          age: Number(age),
+          email,
+          name,
+          password,
+          username,
+        },
+      );
+      return {
+        code: 200,
+        message: '修改成功',
+      };
+    } catch (err) {
+      return {
+        code: 0,
+        message: '修改失败',
       };
     }
   }

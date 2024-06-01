@@ -28,6 +28,11 @@ export class Article {
   articleImage: string;
 
   @Column({
+    default: '',
+  })
+  articleSubTitle: string;
+
+  @Column({
     type: 'enum',
     enum: classify,
     default: null,

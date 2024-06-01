@@ -1,9 +1,9 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Article } from './article.entity';
@@ -15,7 +15,13 @@ export class ArticleLeaveMessage {
   @ManyToOne(() => Article, (article) => article.messageArray)
   message: Article;
 
-  @OneToOne(() => User)
+  @ManyToOne(() => User, (user) => user.id)
   @JoinColumn()
   user: User;
+
+  @Column()
+  content: string;
+
+  @CreateDateColumn()
+  createTime: Date;
 }
