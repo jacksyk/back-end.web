@@ -6,6 +6,7 @@ import { Article } from './entities/article.entity';
 import { ArticleWatch } from './entities/article.info.entity';
 import { UserModule } from 'src/user/user.module';
 import { User } from 'src/user/entities/user.entity';
+import { Classify } from './entities/article.classify.entity';
 import { ArticleLeaveMessage } from 'src/article/entities/article.leave.message.entity';
 @Module({
   controllers: [ArticleController],
@@ -16,6 +17,7 @@ import { ArticleLeaveMessage } from 'src/article/entities/article.leave.message.
       ArticleWatch,
       User,
       ArticleLeaveMessage,
+      Classify,
     ]),
     UserModule,
   ],

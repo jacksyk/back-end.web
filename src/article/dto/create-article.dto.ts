@@ -10,6 +10,9 @@ export class CreateArticleDto {
   @IsString()
   @IsOptional()
   articleImage: string;
+  @IsNumber()
+  @IsOptional()
+  classify: number;
 
   @IsOptional()
   userId: User;

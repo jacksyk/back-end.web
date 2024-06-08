@@ -6,10 +6,11 @@ import {
   OneToMany,
   JoinColumn,
   ManyToOne,
+  OneToOne,
 } from 'typeorm';
 import { ArticleLeaveMessage } from './article.leave.message.entity';
-import { classify } from '../constants';
 import { User } from 'src/user/entities/user.entity';
+import { Classify } from './article.classify.entity';
 @Entity('article')
 export class Article {
   @PrimaryGeneratedColumn()
@@ -32,12 +33,9 @@ export class Article {
   })
   articleSubTitle: string;
 
-  @Column({
-    type: 'enum',
-    enum: classify,
-    default: null,
-  })
-  classify: classify;
+  @ManyToOne(() => Classify, (classify) => classify.id)
+  @JoinColumn()
+  classify: Classify;
 
   @CreateDateColumn()
   createTime: Date;

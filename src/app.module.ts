@@ -17,8 +17,11 @@ import { NavigatorModule } from './navigator/navigator.module';
 import { Navigator } from './navigator/entities/navigator.entity';
 import { AdviceModule } from './advice/advice.module';
 import { Advice } from './advice/entities/advice.entity';
+import { Classify } from './article/entities/article.classify.entity';
+import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -35,6 +38,7 @@ import { Advice } from './advice/entities/advice.entity';
         ArticleLeaveMessage,
         Navigator,
         Advice,
+        Classify,
       ],
       connectorPackage: 'mysql2',
     }),

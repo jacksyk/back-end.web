@@ -57,4 +57,19 @@ export class ArticleController {
   getAllClassify() {
     return this.articleService.getAllClassify();
   }
+
+  @Post('/classify')
+  addClassify(@Body() body: { classify: string }) {
+    return this.articleService.addClassify(body);
+  }
+
+  @Post('/search')
+  searchArticle(@Body() body: { articleContent: string }) {
+    return this.articleService.searchArticle(body);
+  }
+
+  @Get('/classify/find/:id')
+  getClassifyFind(@Param('id') id: number) {
+    return this.articleService.getClassifyFind(id);
+  }
 }

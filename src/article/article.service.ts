@@ -1,17 +1,17 @@
 import { Inject, Injectable, Param, Query } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Any, Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Article } from './entities/article.entity';
 import { ArticleWatch } from './entities/article.info.entity';
 import { FindArticleDto } from './dto/find-article.dto';
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/user/entities/user.entity';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { AddClassifyDto } from './dto/add-classify.dto';
 import { ArticleLeaveMessage } from './entities/article.leave.message.entity';
 import { AddMessageDto } from './dto/add-message.dto';
-import { UserDataype } from './typing';
-import { classify } from './constants';
+import { Classify } from './entities/article.classify.entity';
 import * as dayjs from 'dayjs';
 @Injectable()
 export class ArticleService {
@@ -25,12 +25,16 @@ export class ArticleService {
 
   @InjectRepository(ArticleLeaveMessage)
   private articleLeaveMessageRepository: Repository<ArticleLeaveMessage>;
+
+  @InjectRepository(Classify)
+  private articleClassifyRepository: Repository<Classify>;
+
   constructor(
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
   ) {}
   async create(createArticleDto: CreateArticleDto) {
-    const { articleContent, articleImage, articleTitle, userId } =
+    const { articleContent, articleImage, articleTitle, userId, classify } =
       createArticleDto;
 
     const article = this.articleRepository.create({
@@ -38,6 +42,9 @@ export class ArticleService {
       articleTitle: articleTitle,
       articleImage: articleImage,
       user: userId,
+      classify: {
+        id: Number(classify),
+      },
     });
 
     try {
@@ -227,6 +234,9 @@ export class ArticleService {
         const obj = {
           ..._item,
           userName: _item.user.name, // 这个是用户来修改用户名的，不是账号
+          createTime: dayjs(_item.createTime)
+            .add(8, 'hour')
+            .format('YYYY-MM-DD HH:mm:ss'),
         };
         delete obj['user'];
         return obj;
@@ -245,31 +255,72 @@ export class ArticleService {
   }
 
   async getAllClassify() {
+    const message = await this.articleClassifyRepository.find();
     return {
       code: 200,
-      message: classify,
-      mapData: [
-        {
-          label: '后端',
-          value: 'backend',
+      message,
+    };
+  }
+
+  async addClassify(body: AddClassifyDto) {
+    const { classify } = body;
+    const articleClassify = this.articleClassifyRepository.create({
+      classify: classify,
+    });
+    try {
+      await this.articleClassifyRepository.save(articleClassify);
+      return {
+        code: 200,
+        message: '添加成功',
+      };
+    } catch (err) {
+      console.log(err);
+      return {
+        code: 0,
+        message: '参数错误',
+      };
+    }
+  }
+
+  async searchArticle(body: { articleContent: string }) {
+    const { articleContent } = body;
+    const article = await this.articleRepository.find({
+      where: {
+        articleContent: Like(`%${articleContent}%`),
+      },
+    });
+    const messageMap = article?.map((_item) => ({
+      ..._item,
+      createTime: dayjs(_item.createTime)
+        .add(8, 'hour')
+        .format('YYYY-MM-DD HH:mm:ss'),
+    }));
+
+    return {
+      code: 200,
+      message: messageMap,
+    };
+  }
+  async getClassifyFind(id: number) {
+    const info = await this.articleRepository.find({
+      where: {
+        classify: {
+          id: id,
         },
-        {
-          label: '前端',
-          value: 'frontend',
-        },
-        {
-          label: '1-3年工作经验',
-          value: 'firsttothird',
-        },
-        {
-          label: '3-5年工作经验',
-          value: 'thirdtofive',
-        },
-        {
-          label: '5年以上工作经验',
-          value: 'fiveupper',
-        },
-      ],
+      },
+    });
+
+    const mapData = info.map((_article) => {
+      return {
+        ..._article,
+        createTime: dayjs(_article.createTime)
+          .add(8, 'hour')
+          .format('YYYY-MM-DD HH:mm:ss'),
+      };
+    });
+    return {
+      code: 200,
+      message: mapData,
     };
   }
 }
