@@ -12,7 +12,7 @@ export class EmailService {
       secure: false,
       auth: {
         user: '185901261@qq.com',
-        pass: 'nlbwemphcyqtbgbi',
+        pass: 'mtarxkewjragbhgj',
       },
     });
   }
