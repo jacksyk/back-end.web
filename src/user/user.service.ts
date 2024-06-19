@@ -32,6 +32,23 @@ export class UserService {
     }
   }
 
+  async verifyName(username: string) {
+    const isExsit = await this.userRepository.findOneBy({
+      username,
+    });
+    if (isExsit) {
+      return {
+        code: 202,
+        message: '用户名已存在',
+      };
+    } else {
+      return {
+        code: 200,
+        message: '用户名可用',
+      };
+    }
+  }
+
   async create(createUserDto: CreateUserDto) {
     const { password, username, email, verifyCode } = createUserDto;
 

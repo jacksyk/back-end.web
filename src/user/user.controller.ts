@@ -30,6 +30,11 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @Get('/verifyName/:username')
+  verifyName(@Param('username') username: string) {
+    return this.userService.verifyName(username);
+  }
+
   @Post('/login')
   login(@Body() loginUserDto: LoginUserDto) {
     this.logger.log('login', CONTEXT);
